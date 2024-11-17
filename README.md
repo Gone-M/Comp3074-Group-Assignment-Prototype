@@ -50,5 +50,5 @@ This prototype implements a foundational structure for the **Personal Restaurant
 
 1. **Clone the Repository:**
    ```bash
-   git clone <repository_url>
+   git clone [<repository_url>](https://github.com/Gone-M/Comp3074-Group-Assignment-Prototype.git)
    cd PersonalRestaurantGuide
