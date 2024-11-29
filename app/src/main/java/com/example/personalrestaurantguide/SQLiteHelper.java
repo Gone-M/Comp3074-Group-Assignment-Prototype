@@ -66,18 +66,40 @@ public class SQLiteHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_ID));
                 String name = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_NAME));
                 String address = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_ADDRESS));
                 String phone = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_PHONE));
                 String description = cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_DESCRIPTION));
                 int rating = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_RATING));
 
-                restaurantList.add(new Restaurant(name, address, phone, description, rating));
+                restaurantList.add(new Restaurant(id, name, address, phone, description, rating));
             } while (cursor.moveToNext());
         }
 
         cursor.close();
         db.close();
         return restaurantList;
+    }
+
+    public void deleteRestaurant(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+    }
+
+    public boolean updateRestaurant(int id, String name, String address, String phone, String description, int rating) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_ADDRESS, address);
+        values.put(COLUMN_PHONE, phone);
+        values.put(COLUMN_DESCRIPTION, description);
+        values.put(COLUMN_RATING, rating);
+
+        int rowsUpdated = db.update(TABLE_NAME, values, COLUMN_ID + " = ?", new String[]{String.valueOf(id)});
+        db.close();
+
+        return rowsUpdated > 0;
     }
 }

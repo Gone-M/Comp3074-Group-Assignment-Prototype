@@ -20,13 +20,10 @@
             </intent-filter>
         </activity>
 
-        <!-- About Activity -->
         <activity android:name=".AboutActivity" />
 
-        <!-- Add Restaurant Activity -->
         <activity android:name=".AddRestaurantActivity" />
 
-        <!--  View Restaurant      -->
         <activity android:name=".RestaurantListActivity" />
 
     </application>
